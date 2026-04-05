@@ -4,8 +4,15 @@ export default {
   darkMode: 'class',
   theme: {
     extend: {
+      colors: {
+        paper: '#FAFAF8',
+        ink: '#1a1a1a',
+        accent: '#1d4ed8',
+      },
       fontFamily: {
         sans: ['Inter', 'system-ui', 'sans-serif'],
+        serif: ['Lora', 'Georgia', 'ui-serif', 'serif'],
+        mono: ['ui-monospace', 'SFMono-Regular', 'Menlo', 'monospace'],
       },
       animation: {
         'fade-in': 'fadeIn 0.5s ease-in-out',

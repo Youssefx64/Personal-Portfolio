@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { PenTool } from 'lucide-react';
 
 const Blog: React.FC = () => {

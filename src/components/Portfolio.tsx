@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
-import { projects, Project } from '../data/projects';
-import { Github, ExternalLink, Filter, Eye, Code2, Sparkles } from 'lucide-react';
+import { projects, type Project } from '../content/projects';
+import { Filter, Eye, Code2, Sparkles } from 'lucide-react';
 
 const Portfolio: React.FC = () => {
   const [selectedCategory, setSelectedCategory] = useState('All');

@@ -1,51 +1,39 @@
-import React from 'react';
-import { useDarkMode } from './hooks/useDarkMode';
-import Navigation from './components/Navigation';
-import Home from './components/Home';
-import About from './components/About';
-import Portfolio from './components/Portfolio';
-import Publications from './components/Publications';
-import Blog from './components/Blog';
-import Resume from './components/Resume';
-import Contact from './components/Contact';
+import { lazy, Suspense } from 'react';
+import { Route, Routes } from 'react-router-dom';
+import Layout from './components/layout/Layout';
 
-function App() {
-  const { isDark, toggleDarkMode } = useDarkMode();
+const Home = lazy(() => import('./pages/Home'));
+const About = lazy(() => import('./pages/About'));
+const Projects = lazy(() => import('./pages/Projects'));
+const Blog = lazy(() => import('./pages/Blog'));
+const BlogPost = lazy(() => import('./pages/BlogPost'));
+const Research = lazy(() => import('./pages/Research'));
+const Resume = lazy(() => import('./pages/Resume'));
+const NotFound = lazy(() => import('./pages/NotFound'));
 
+function RouteFallback() {
   return (
-    <div className={`min-h-screen ${isDark ? 'dark' : ''}`}>
-      <Navigation isDark={isDark} toggleDarkMode={toggleDarkMode} />
-      
-      <main className="overflow-x-hidden">
-        <Home />
-        <About />
-        <Portfolio />
-        <Publications />
-        <Blog />
-        <Resume />
-        <Contact />
-      </main>
-
-      {/* Footer */}
-      <footer className="bg-gray-900 text-white py-12">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="text-center">
-            <div className="mb-6">
-              <span className="text-2xl font-bold text-blue-400">Youssef Taha B.</span>
-            </div>
-            <p className="text-gray-400 mb-6">
-              AI Engineer passionate about developing practical AI solutions for real-world challenges.
-            </p>
-            <div className="border-t border-gray-700 pt-6">
-              <p className="text-sm text-gray-500">
-                © 2024 Youssef Taha B. All rights reserved. Built with React and Tailwind CSS.
-              </p>
-            </div>
-          </div>
-        </div>
-      </footer>
+    <div className="mx-auto max-w-3xl px-4 py-24 text-sm text-neutral-500 dark:text-neutral-400 sm:px-6">
+      Loading…
     </div>
   );
 }
 
-export default App;
+export default function App() {
+  return (
+    <Suspense fallback={<RouteFallback />}>
+      <Routes>
+        <Route element={<Layout />}>
+          <Route index element={<Home />} />
+          <Route path="about" element={<About />} />
+          <Route path="projects" element={<Projects />} />
+          <Route path="blog" element={<Blog />} />
+          <Route path="blog/:slug" element={<BlogPost />} />
+          <Route path="research" element={<Research />} />
+          <Route path="resume" element={<Resume />} />
+          <Route path="*" element={<NotFound />} />
+        </Route>
+      </Routes>
+    </Suspense>
+  );
+}

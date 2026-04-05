@@ -4,7 +4,7 @@ export const useDarkMode = () => {
   const [isDark, setIsDark] = useState(() => {
     if (typeof window !== 'undefined') {
       const saved = localStorage.getItem('darkMode');
-      return saved ? JSON.parse(saved) : window.matchMedia('(prefers-color-scheme: dark)').matches;
+      if (saved !== null) return JSON.parse(saved) as boolean;
     }
     return false;
   });

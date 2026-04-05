@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Menu, X, Moon, Sun, Github, Linkedin, Twitter, Globe } from 'lucide-react';
+import { Menu, X, Moon, Sun, Globe } from 'lucide-react';
 
 interface NavigationProps {
   isDark: boolean;

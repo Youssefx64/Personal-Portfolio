@@ -1,5 +1,22 @@
 import React from 'react';
-import { Download, MapPin, Mail, Phone, Calendar, Award, Briefcase, GraduationCap, Code, ExternalLink } from 'lucide-react';
+import { Download, MapPin, Mail, Phone, Calendar, Award, Briefcase, GraduationCap, ExternalLink } from 'lucide-react';
+
+interface Experience {
+  position: string;
+  company: string;
+  location: string;
+  duration: string;
+  description: string;
+  technologies: string[];
+}
+
+interface Education {
+  degree: string;
+  school: string;
+  location: string;
+  year: string;
+  description: string;
+}
 
 const Resume: React.FC = () => {
   return (
@@ -148,7 +165,7 @@ const Resume: React.FC = () => {
   );
 };
 
-const ExperienceItem: React.FC<{ experience: any }> = ({ experience }) => {
+const ExperienceItem: React.FC<{ experience: Experience }> = ({ experience }) => {
   return (
     <div className="border-l-4 border-blue-600 pl-6">
       <div className="flex flex-col md:flex-row md:items-center md:justify-between mb-2">
@@ -180,7 +197,7 @@ const ExperienceItem: React.FC<{ experience: any }> = ({ experience }) => {
   );
 };
 
-const EducationItem: React.FC<{ education: any }> = ({ education }) => {
+const EducationItem: React.FC<{ education: Education }> = ({ education }) => {
   return (
     <div className="border-l-4 border-green-500 pl-6">
       <div className="flex flex-col md:flex-row md:items-center md:justify-between mb-2">
@@ -222,7 +239,7 @@ const skillCategories = [
   }
 ];
 
-const experiences = [
+const experiences: Experience[] = [
   {
     position: "AI Engineer & Research Developer",
     company: "Independent Research & Development",
@@ -249,7 +266,7 @@ const experiences = [
   }
 ];
 
-const education = [
+const education: Education[] = [
   {
     degree: "Bachelor of Science in Computer Science",
     school: "Cairo University",

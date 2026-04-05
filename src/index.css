@@ -2,18 +2,25 @@
 @tailwind components;
 @tailwind utilities;
 
-/* Smooth scrolling for the entire page */
 html {
   scroll-behavior: smooth;
 }
 
-/* Enhanced hover animations */
-.hover-lift {
-  transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+.article-body .katex-display {
+  overflow-x: auto;
+  overflow-y: hidden;
+  padding: 0.5rem 0;
 }
 
-.hover-lift:hover {
-  transform: translateY(-5px);
+.dark .article-body pre code.hljs {
+  background: transparent !important;
+}
+
+@media print {
+  .resume-page a {
+    color: inherit;
+    text-decoration: none;
+  }
 }
 
 /* Arabic font support */
