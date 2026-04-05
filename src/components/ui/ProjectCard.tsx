@@ -1,4 +1,4 @@
-import { ExternalLink, Github } from 'lucide-react';
+import { ArrowRight } from 'lucide-react';
 import type { Project } from '../../content/projects';
 import Tag from './Tag';
 
@@ -12,42 +12,46 @@ export default function ProjectCard({ project }: ProjectCardProps) {
       src={project.image}
       alt=""
       loading="lazy"
-      className="aspect-video w-full object-cover"
+      className="aspect-video w-full object-cover transition-opacity duration-200"
     />
   );
   const link = project.githubUrl ?? project.liveUrl;
 
   return (
-    <article className="flex flex-col overflow-hidden rounded-lg border border-neutral-200 bg-white shadow-sm transition-shadow hover:shadow-md dark:border-neutral-800 dark:bg-neutral-900">
+    <article className="group flex flex-col overflow-hidden rounded-[8px] border border-border-light bg-surface shadow-sm transition-shadow duration-200 hover:shadow-md dark:border-border-dark dark:bg-surface-dark">
       {link ? (
-        <a href={link} className="block shrink-0" target="_blank" rel="noopener noreferrer">
+        <a href={link} className="block shrink-0 focus-visible:outline focus-visible:outline-2 focus-visible:outline-accent" target="_blank" rel="noopener noreferrer">
           {thumb}
         </a>
       ) : (
         <div className="shrink-0">{thumb}</div>
       )}
-      <div className="flex flex-1 flex-col gap-3 p-4">
-        <h3 className="font-serif text-lg font-medium leading-snug text-ink dark:text-neutral-100">
+      <div className="relative flex flex-1 flex-col gap-3 p-6">
+        {project.category && (
+          <span className="absolute top-6 right-6 text-[0.625rem] text-[#6B7280] dark:text-[#9CA3AF] tracking-wider uppercase">
+            {project.category}
+          </span>
+        )}
+        <h3 className="font-serif text-[1.25rem] font-medium leading-snug text-ink dark:text-[#EDEDED] pr-16 mt-1">
           {project.title}
         </h3>
-        <p className="line-clamp-2 text-sm leading-relaxed text-neutral-600 dark:text-neutral-400">
+        <p className="line-clamp-2 text-sm leading-relaxed text-[#6B7280] dark:text-[#9CA3AF]">
           {project.description}
         </p>
-        <div className="flex flex-wrap gap-1.5">
+        <div className="flex flex-wrap gap-1.5 mt-2">
           {project.technologies.slice(0, 5).map((t) => (
             <Tag key={t}>{t}</Tag>
           ))}
         </div>
-        <div className="mt-auto flex gap-4 pt-1 text-sm">
+        <div className="mt-auto flex gap-4 pt-4 text-[0.875rem]">
           {project.githubUrl && (
             <a
               href={project.githubUrl}
               target="_blank"
               rel="noopener noreferrer"
-              className="inline-flex items-center gap-1 text-neutral-600 hover:text-accent dark:text-neutral-400 dark:hover:text-blue-400"
+              className="inline-flex items-center gap-1 text-accent transition-colors hover:text-accent-hover focus-visible:outline focus-visible:outline-2 focus-visible:outline-accent"
             >
-              <Github className="h-4 w-4" />
-              Code
+              Code <ArrowRight className="h-3 w-3" />
             </a>
           )}
           {project.liveUrl && (
@@ -55,10 +59,9 @@ export default function ProjectCard({ project }: ProjectCardProps) {
               href={project.liveUrl}
               target="_blank"
               rel="noopener noreferrer"
-              className="inline-flex items-center gap-1 text-neutral-600 hover:text-accent dark:text-neutral-400 dark:hover:text-blue-400"
+              className="inline-flex items-center gap-1 text-accent transition-colors hover:text-accent-hover focus-visible:outline focus-visible:outline-2 focus-visible:outline-accent"
             >
-              <ExternalLink className="h-4 w-4" />
-              Demo
+              Demo <ArrowRight className="h-3 w-3" />
             </a>
           )}
         </div>

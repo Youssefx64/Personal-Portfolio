@@ -9,7 +9,7 @@ type BlogPostCardProps = {
 
 function formatDate(iso: string) {
   try {
-    return new Intl.DateTimeFormat('en', { year: 'numeric', month: 'short', day: 'numeric' }).format(
+    return new Intl.DateTimeFormat('en', { year: 'numeric', month: 'short' }).format(
       new Date(iso)
     );
   } catch {
@@ -19,27 +19,30 @@ function formatDate(iso: string) {
 
 export default function BlogPostCard({ post, showSummary }: BlogPostCardProps) {
   return (
-    <article className="border-b border-neutral-200 py-6 last:border-0 dark:border-neutral-800">
-      <div className="flex flex-wrap items-baseline gap-x-2 gap-y-1 text-sm text-neutral-500 dark:text-neutral-500">
-        <time dateTime={post.date}>{formatDate(post.date)}</time>
-        <span aria-hidden>—</span>
-        <span>{post.readingTime} min read</span>
+    <article className="flex flex-col sm:flex-row sm:items-baseline gap-4 py-4 border-b border-border-light dark:border-border-dark last:border-0 relative">
+      <div className="flex shrink-0 items-center justify-between sm:w-32 mt-1">
+        <time dateTime={post.date} className="font-mono text-[0.875rem] text-[#6B7280] dark:text-[#9CA3AF]">
+          {formatDate(post.date)}
+        </time>
+        <span className="hidden sm:inline-block text-border-light dark:text-border-dark mr-4 md:mr-6">•</span>
       </div>
-      <h2 className="mt-2 font-serif text-xl font-medium">
-        <Link to={`/blog/${post.slug}`} className="text-ink hover:text-accent dark:text-neutral-100 dark:hover:text-blue-400">
-          {post.title}
-        </Link>
-      </h2>
-      {showSummary && post.summary && (
-        <p className="mt-2 text-sm text-neutral-600 dark:text-neutral-400">{post.summary}</p>
-      )}
-      {post.tags.length > 0 && (
-        <div className="mt-3 flex flex-wrap gap-1.5">
-          {post.tags.map((t) => (
-            <Tag key={t}>{t}</Tag>
-          ))}
-        </div>
-      )}
+      <div className="flex-1">
+        <h3 className="font-serif text-[1.25rem] font-medium leading-snug">
+          <Link to={`/blog/${post.slug}`} className="text-accent transition-colors duration-150 hover:text-accent-hover focus-visible:outline focus-visible:outline-2 focus-visible:outline-accent before:absolute before:inset-0">
+            {post.title}
+          </Link>
+        </h3>
+        {showSummary && post.summary && (
+          <p className="mt-2 text-[0.875rem] text-[#6B7280] dark:text-[#9CA3AF] leading-relaxed">{post.summary}</p>
+        )}
+        {post.tags.length > 0 && (
+          <div className="mt-3 flex flex-wrap gap-1.5 relative z-10">
+            {post.tags.map((t) => (
+              <Tag key={t}>{t}</Tag>
+            ))}
+          </div>
+        )}
+      </div>
     </article>
   );
 }

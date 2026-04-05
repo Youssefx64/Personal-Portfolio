@@ -9,7 +9,7 @@ import rehypeHighlight from 'rehype-highlight';
 import { slugifyHeading } from '../../utils/slugify';
 import { CodeBlock } from './CodeBlock';
 import 'katex/dist/katex.min.css';
-import 'highlight.js/styles/github.min.css';
+import 'highlight.js/styles/github-dark.min.css';
 
 function childrenToPlainText(node: ReactNode): string {
   if (node == null || typeof node === 'boolean') return '';
@@ -29,7 +29,7 @@ const markdownComponents: Partial<Components> = {
     return (
       <h2
         id={id}
-        className="mt-12 scroll-mt-28 font-serif text-2xl font-medium text-ink first:mt-0 dark:text-neutral-100"
+        className="mt-12 mb-6 scroll-mt-28 border-l-4 border-accent pl-4 font-serif text-[1.75rem] font-semibold text-ink first:mt-0 dark:text-[#EDEDED]"
         {...props}
       >
         {children}
@@ -40,25 +40,25 @@ const markdownComponents: Partial<Components> = {
     const text = childrenToPlainText(children);
     const id = slugifyHeading(text);
     return (
-      <h3 id={id} className="mt-8 scroll-mt-28 font-serif text-xl font-medium text-ink dark:text-neutral-100" {...props}>
+      <h3 id={id} className="mt-10 mb-4 scroll-mt-28 border-l-4 border-accent pl-4 font-serif text-[1.25rem] font-semibold text-ink dark:text-[#EDEDED]" {...props}>
         {children}
       </h3>
     );
   },
   h4: ({ children, ...props }) => (
-    <h4 className="mt-6 font-serif text-lg font-medium text-ink dark:text-neutral-100" {...props}>
+    <h4 className="mt-8 mb-4 font-serif text-lg font-semibold text-ink dark:text-[#EDEDED]" {...props}>
       {children}
     </h4>
   ),
   p: ({ children, ...props }) => (
-    <p className="my-4 leading-relaxed text-neutral-700 dark:text-neutral-300" {...props}>
+    <p className="my-6 text-base leading-[1.75] text-[#111111] dark:text-[#EDEDED]" {...props}>
       {children}
     </p>
   ),
   a: ({ children, href, ...props }) => (
     <a
       href={href}
-      className="text-accent underline-offset-2 hover:underline dark:text-blue-400"
+      className="text-accent underline-offset-4 hover:underline transition-colors hover:text-accent-hover"
       target={href?.startsWith('http') ? '_blank' : undefined}
       rel={href?.startsWith('http') ? 'noopener noreferrer' : undefined}
       {...props}
@@ -67,54 +67,57 @@ const markdownComponents: Partial<Components> = {
     </a>
   ),
   ul: ({ children, ...props }) => (
-    <ul className="my-4 list-disc space-y-1 pl-6 text-neutral-700 dark:text-neutral-300" {...props}>
+    <ul className="my-6 list-disc space-y-2 pl-6 text-[#111111] dark:text-[#EDEDED]" {...props}>
       {children}
     </ul>
   ),
   ol: ({ children, ...props }) => (
-    <ol className="my-4 list-decimal space-y-1 pl-6 text-neutral-700 dark:text-neutral-300" {...props}>
+    <ol className="my-6 list-decimal space-y-2 pl-6 text-[#111111] dark:text-[#EDEDED]" {...props}>
       {children}
     </ol>
   ),
   li: ({ children, ...props }) => (
-    <li className="leading-relaxed" {...props}>
+    <li className="leading-[1.75]" {...props}>
       {children}
     </li>
   ),
   blockquote: ({ children, ...props }) => (
     <blockquote
-      className="my-4 border-l-2 border-neutral-300 pl-4 text-neutral-600 italic dark:border-neutral-600 dark:text-neutral-400"
+      className="my-8 border-l-4 border-border-light dark:border-border-dark bg-paper dark:bg-surface-dark pl-4 py-2 italic text-[#6B7280] dark:text-[#9CA3AF]"
       {...props}
     >
       {children}
     </blockquote>
   ),
-  hr: (props) => <hr className="my-10 border-neutral-200 dark:border-neutral-800" {...props} />,
+  hr: (props) => <hr className="my-12 border-border-light dark:border-border-dark" {...props} />,
   table: ({ children, ...props }) => (
-    <div className="my-6 overflow-x-auto">
-      <table className="w-full border-collapse text-left text-sm text-neutral-700 dark:text-neutral-300" {...props}>
+    <div className="my-8 overflow-x-auto">
+      <table className="w-full border-collapse text-left text-[0.875rem] text-[#111111] dark:text-[#EDEDED]" {...props}>
         {children}
       </table>
     </div>
   ),
   th: ({ children, ...props }) => (
-    <th className="border border-neutral-200 bg-neutral-100 px-3 py-2 font-medium dark:border-neutral-700 dark:bg-neutral-900" {...props}>
+    <th className="border-b-2 border-border-light px-4 py-3 font-semibold dark:border-border-dark" {...props}>
       {children}
     </th>
   ),
   td: ({ children, ...props }) => (
-    <td className="border border-neutral-200 px-3 py-2 dark:border-neutral-700" {...props}>
+    <td className="border-b border-border-light px-4 py-3 dark:border-border-dark" {...props}>
       {children}
     </td>
   ),
   img: ({ src, alt, ...props }) => (
-    <img
-      src={src}
-      alt={alt ?? ''}
-      loading="lazy"
-      className="my-6 max-h-[480px] rounded-lg border border-neutral-200 object-contain dark:border-neutral-800"
-      {...props}
-    />
+    <span className="block my-8 text-center">
+      <img
+        src={src}
+        alt={alt ?? ''}
+        loading="lazy"
+        className="mx-auto max-h-[600px] w-full rounded-lg shadow-sm"
+        {...props}
+      />
+      {alt && <span className="block mt-4 text-[0.875rem] text-[#6B7280] dark:text-[#9CA3AF]">{alt}</span>}
+    </span>
   ),
   pre: ({ children }) => <CodeBlock>{children}</CodeBlock>,
   code: ({ className, children, ...props }) => {
@@ -122,7 +125,7 @@ const markdownComponents: Partial<Components> = {
     if (inline) {
       return (
         <code
-          className="rounded bg-neutral-100 px-1.5 py-0.5 font-mono text-[0.9em] text-ink dark:bg-neutral-800 dark:text-neutral-200"
+          className="rounded bg-code-bg px-1.5 py-0.5 font-mono text-[0.875em] text-ink dark:bg-code-bg-dark dark:text-[#EDEDED]"
           {...props}
         >
           {children}
@@ -130,7 +133,7 @@ const markdownComponents: Partial<Components> = {
       );
     }
     return (
-      <code className={className} {...props}>
+      <code className={`${className} font-mono text-[0.875em]`} {...props}>
         {children}
       </code>
     );
@@ -140,7 +143,7 @@ const markdownComponents: Partial<Components> = {
     if (isFootnotes) {
       return (
         <section
-          className={`footnotes mt-12 border-t border-neutral-200 pt-8 text-sm dark:border-neutral-800 ${className ?? ''}`}
+          className={`footnotes mt-16 border-t border-border-light pt-8 text-[0.875rem] dark:border-border-dark ${className ?? ''}`}
           {...props}
         >
           {children}

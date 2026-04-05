@@ -30,10 +30,10 @@ export default function Projects() {
         <meta property="og:url" content={`${site.url}/projects`} />
       </Helmet>
 
-      <div className="mx-auto max-w-6xl px-4 py-14 sm:px-6 lg:px-8">
+      <div className="mx-auto max-w-[720px] px-4 pt-16 sm:px-6">
         <header className="max-w-2xl">
-          <h1 className="font-serif text-3xl font-medium text-ink dark:text-neutral-100">Projects</h1>
-          <p className="mt-3 text-neutral-600 dark:text-neutral-400">
+          <h1 className="font-serif text-[2.5rem] font-bold text-ink dark:text-[#EDEDED]">Projects</h1>
+          <p className="mt-4 text-base leading-relaxed text-[#6B7280] dark:text-[#9CA3AF]">
             Highlights from my work: a graduation project turning language into CAD (DXF), a production-style nutrition
             RAG stack, and a speech emotion recognition pipeline. Filter by area; links open GitHub or Kaggle where
             applicable.
@@ -47,15 +47,17 @@ export default function Projects() {
             </Tag>
           ))}
         </div>
+      </div>
 
-        <div className="mt-10 grid gap-8 sm:grid-cols-2 lg:grid-cols-3">
+      <div className="mx-auto max-w-[1100px] px-4 py-12 sm:px-6">
+        <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
           {filtered.map((p) => (
             <ProjectCard key={p.id} project={p} />
           ))}
         </div>
 
         {filtered.length === 0 && (
-          <p className="mt-10 text-neutral-600 dark:text-neutral-400">No projects in this category.</p>
+          <p className="mt-10 text-center text-[#6B7280] dark:text-[#9CA3AF]">No projects in this category.</p>
         )}
       </div>
     </>

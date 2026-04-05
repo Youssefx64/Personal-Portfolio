@@ -2,6 +2,36 @@
 @tailwind components;
 @tailwind utilities;
 
+@layer base {
+  body {
+    @apply bg-paper text-ink font-sans leading-[1.75] antialiased text-base;
+  }
+  
+  .dark body {
+    @apply bg-[#0F0F0F] text-[#EDEDED];
+  }
+
+  h1, h2, h3 {
+    @apply font-serif text-ink tracking-tight;
+  }
+
+  .dark h1, .dark h2, .dark h3 {
+    @apply text-[#EDEDED];
+  }
+
+  h1 {
+    @apply text-[2.5rem] font-bold;
+  }
+
+  h2 {
+    @apply text-[1.75rem] font-semibold;
+  }
+
+  h3 {
+    @apply text-[1.25rem] font-semibold;
+  }
+}
+
 html {
   scroll-behavior: smooth;
 }
@@ -23,21 +53,7 @@ html {
   }
 }
 
-/* Arabic font support */
-.font-arabic {
-  font-family: 'Cairo', 'Amiri', 'Noto Sans Arabic', sans-serif;
-}
-
-/* RTL support */
-[dir="rtl"] {
-  text-align: right;
-}
-
-[dir="rtl"] .flex {
-  flex-direction: row-reverse;
-}
-
-/* Ensure proper spacing in RTL */
-[dir="rtl"] .space-x-reverse > :not([hidden]) ~ :not([hidden]) {
-  --tw-space-x-reverse: 1;
+/* Base interactive elements */
+:focus-visible {
+  @apply outline outline-2 outline-accent outline-offset-2;
 }

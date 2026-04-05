@@ -23,10 +23,10 @@ export default function Blog() {
         <meta property="og:url" content={`${site.url}/blog`} />
       </Helmet>
 
-      <div className="mx-auto max-w-3xl px-4 py-14 sm:px-6 lg:max-w-4xl">
+      <div className="mx-auto max-w-[720px] px-4 py-16 sm:px-6">
         <header className="max-w-2xl">
-          <h1 className="font-serif text-3xl font-medium text-ink dark:text-neutral-100">Blog</h1>
-          <p className="mt-3 text-neutral-600 dark:text-neutral-400">
+          <h1 className="font-serif text-[2.5rem] font-bold text-ink dark:text-[#EDEDED]">Blog</h1>
+          <p className="mt-4 text-base leading-relaxed text-[#6B7280] dark:text-[#9CA3AF]">
             Notes and longer articles, newest first. Click a tag to filter the list.
           </p>
         </header>
@@ -44,14 +44,14 @@ export default function Blog() {
           </div>
         )}
 
-        <div className="mt-4">
+        <div className="mt-12 flex flex-col gap-4">
           {filtered.map((post) => (
-            <BlogPostCard key={post.slug} post={post} showSummary />
+            <BlogPostCard key={post.slug} post={post} />
           ))}
         </div>
 
         {filtered.length === 0 && (
-          <p className="mt-8 text-neutral-600 dark:text-neutral-400">No posts for this tag.</p>
+          <p className="mt-10 py-10 text-center text-[#6B7280] dark:text-[#9CA3AF]">No posts for this tag.</p>
         )}
       </div>
     </>

@@ -26,45 +26,64 @@ export default function Home() {
         <meta property="og:url" content={site.url} />
       </Helmet>
 
-      <div className="mx-auto max-w-3xl px-4 py-16 sm:px-6 lg:max-w-4xl lg:py-20">
-        <header className="max-w-2xl">
-          <h1 className="font-serif text-3xl font-medium tracking-tight text-ink dark:text-neutral-100 sm:text-4xl">
+      {/* Hero section */}
+      <div className="mx-auto max-w-[720px] px-4 pt-24 pb-8 sm:px-6 md:pt-32">
+        <header className="max-w-xl">
+          <h1 className="font-serif text-[2.5rem] font-bold tracking-tight text-ink dark:text-[#EDEDED]">
             {site.name}
           </h1>
-          <p className="mt-2 text-lg text-neutral-600 dark:text-neutral-400">{site.title}</p>
-          <p className="mt-6 leading-relaxed text-neutral-700 dark:text-neutral-300">{BIO}</p>
+          <p className="mt-4 text-[0.875rem] font-medium tracking-widest uppercase text-[#6B7280] dark:text-[#9CA3AF]">
+            {site.title}
+          </p>
+          <p className="mt-8 text-base leading-[1.75] text-[#111111] dark:text-[#EDEDED]">
+            {BIO}
+          </p>
         </header>
+      </div>
 
-        <section className="mt-16" aria-labelledby="featured-heading">
-          <h2 id="featured-heading" className="font-serif text-xl font-medium text-ink dark:text-neutral-100">
-            Featured work
+      <div className="mx-auto max-w-[720px] px-4 sm:px-6">
+        <hr className="my-16 border-border-light dark:border-border-dark" />
+      </div>
+
+      {/* Featured Projects section */}
+      <div className="mx-auto max-w-[1100px] px-4 sm:px-6">
+        <section aria-labelledby="featured-heading">
+          <h2 id="featured-heading" className="font-serif text-[1.75rem] font-semibold text-ink dark:text-[#EDEDED]">
+            Featured Projects
           </h2>
-          <div className="mt-8 grid gap-8 sm:grid-cols-2 lg:grid-cols-3">
+          <div className="mt-8 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
             {featured.map((p) => (
               <ProjectCard key={p.id} project={p} />
             ))}
           </div>
-          <p className="mt-6 text-sm">
-            <Link to="/projects" className="text-accent underline-offset-2 hover:underline dark:text-blue-400">
-              All projects →
+          <div className="mt-8">
+            <Link to="/projects" className="text-[0.875rem] text-accent transition-colors hover:text-accent-hover hover:underline underline-offset-4">
+              View all projects <span>&rarr;</span>
             </Link>
-          </p>
+          </div>
         </section>
+      </div>
 
-        <section className="mt-16" aria-labelledby="writing-heading">
-          <h2 id="writing-heading" className="font-serif text-xl font-medium text-ink dark:text-neutral-100">
-            Recent writing
+      <div className="mx-auto max-w-[720px] px-4 sm:px-6">
+        <hr className="my-16 border-border-light dark:border-border-dark" />
+      </div>
+
+      {/* Recent Writing section */}
+      <div className="mx-auto max-w-[720px] px-4 sm:px-6 pb-16">
+        <section aria-labelledby="writing-heading">
+          <h2 id="writing-heading" className="font-serif text-[1.75rem] font-semibold text-ink dark:text-[#EDEDED]">
+            Recent Writing
           </h2>
-          <div className="mt-2">
+          <div className="mt-8 flex flex-col gap-4">
             {recentPosts.map((post) => (
               <BlogPostCard key={post.slug} post={post} />
             ))}
           </div>
-          <p className="text-sm">
-            <Link to="/blog" className="text-accent underline-offset-2 hover:underline dark:text-blue-400">
-              Archive →
+          <div className="mt-8">
+            <Link to="/blog" className="text-[0.875rem] text-accent transition-colors hover:text-accent-hover hover:underline underline-offset-4">
+              Read all posts <span>&rarr;</span>
             </Link>
-          </p>
+          </div>
         </section>
       </div>
     </>

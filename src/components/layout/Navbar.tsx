@@ -1,7 +1,6 @@
 import { useState } from 'react';
 import { NavLink } from 'react-router-dom';
 import { Menu, X } from 'lucide-react';
-import { site } from '../../config/site';
 
 const nav = [
   { to: '/about', label: 'About' },
@@ -12,26 +11,25 @@ const nav = [
 ] as const;
 
 function linkClass(isActive: boolean) {
-  const base =
-    'text-sm transition-colors underline-offset-4 decoration-accent decoration-1';
+  const base = "relative text-[0.875rem] text-[#6B7280] dark:text-[#9CA3AF] transition-colors duration-150 ease-in-out hover:text-ink dark:hover:text-[#EDEDED] py-1";
   if (isActive) {
-    return `${base} text-ink dark:text-neutral-100 underline font-medium`;
+    return `${base} font-bold !text-ink dark:!text-[#EDEDED] after:absolute after:-bottom-1 after:left-0 after:h-[2px] after:w-full after:bg-accent`;
   }
-  return `${base} text-neutral-600 dark:text-neutral-400 hover:text-ink dark:hover:text-neutral-200 hover:underline`;
+  return `${base} after:absolute after:-bottom-1 after:left-0 after:h-[2px] after:w-full after:origin-left after:scale-x-0 after:bg-accent after:transition-transform after:duration-[150ms] hover:after:scale-x-100`;
 }
 
 export default function Navbar() {
   const [open, setOpen] = useState(false);
 
   return (
-    <header className="sticky top-0 z-50 border-b border-neutral-200/80 bg-paper/95 backdrop-blur-sm dark:border-neutral-800 dark:bg-neutral-950/95">
-      <nav className="mx-auto flex h-14 max-w-3xl items-center justify-between px-4 sm:px-6 lg:max-w-4xl">
+    <header className="sticky top-0 z-50 transition-colors duration-200 bg-paper/80 backdrop-blur-sm border-b border-border-light dark:border-border-dark dark:bg-[#0F0F0F]/80">
+      <nav className="mx-auto flex h-[56px] max-w-[720px] items-center justify-between px-4 sm:px-6">
         <NavLink
           to="/"
-          className="font-serif text-lg font-medium text-ink dark:text-neutral-100"
+          className="font-mono text-sm text-ink dark:text-[#EDEDED] select-none"
           onClick={() => setOpen(false)}
         >
-          {site.name}
+          Youssef Taha B.
         </NavLink>
 
         <div className="hidden items-center gap-6 md:flex">
@@ -44,7 +42,7 @@ export default function Navbar() {
 
         <button
           type="button"
-          className="rounded p-2 text-neutral-600 hover:bg-neutral-100 dark:text-neutral-400 dark:hover:bg-neutral-900 md:hidden"
+          className="rounded p-2 text-[#6B7280] dark:text-[#9CA3AF] hover:bg-neutral-100 dark:hover:bg-neutral-900 md:hidden transition-colors duration-150"
           aria-expanded={open}
           aria-label={open ? 'Close menu' : 'Open menu'}
           onClick={() => setOpen((v) => !v)}
@@ -54,14 +52,18 @@ export default function Navbar() {
       </nav>
 
       {open && (
-        <div className="border-t border-neutral-200 dark:border-neutral-800 md:hidden">
-          <div className="flex flex-col gap-1 px-4 py-3">
+        <div className="fixed inset-0 top-[56px] z-40 bg-paper dark:bg-[#0F0F0F] md:hidden">
+          <div className="flex flex-col gap-1 px-4 py-6 border-t border-border-light dark:border-border-dark">
             {nav.map(({ to, label }) => (
               <NavLink
                 key={to}
                 to={to}
                 className={({ isActive }) =>
-                  `rounded px-3 py-2 text-sm ${isActive ? 'bg-neutral-100 font-medium dark:bg-neutral-900' : 'text-neutral-600 dark:text-neutral-400'}`
+                  `block px-3 py-3 text-lg font-medium transition-colors duration-150 ${
+                    isActive
+                      ? 'text-accent dark:text-accent font-bold'
+                      : 'text-ink dark:text-[#EDEDED] hover:text-accent dark:hover:text-accent'
+                  }`
                 }
                 onClick={() => setOpen(false)}
               >
