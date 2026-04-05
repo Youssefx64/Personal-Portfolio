@@ -1,4 +1,4 @@
-import matter from 'gray-matter';
+import { parse as parseYaml } from 'yaml';
 import { estimateReadingTimeMinutes } from './readingTime';
 import { slugifyHeading } from './slugify';
 
@@ -33,16 +33,34 @@ const rawModules = import.meta.glob<string>('../content/blog/*.md', {
   import: 'default',
 });
 
+/** YAML frontmatter only — browser-safe (no Node Buffer). */
+function parseFrontmatter(raw: string): { data: Record<string, unknown>; content: string } {
+  const m = raw.match(/^---\r?\n([\s\S]*?)\r?\n---\r?\n([\s\S]*)$/);
+  if (!m) {
+    return { data: {}, content: raw.trim() };
+  }
+  let data: Record<string, unknown> = {};
+  try {
+    const parsed = parseYaml(m[1]);
+    if (parsed && typeof parsed === 'object' && !Array.isArray(parsed)) {
+      data = parsed as Record<string, unknown>;
+    }
+  } catch {
+    /* invalid YAML: treat as empty meta */
+  }
+  return { data, content: m[2].trim() };
+}
+
 function normalizeDate(value: unknown): string {
   if (value instanceof Date) return value.toISOString().slice(0, 10);
   return String(value);
 }
 
 function parsePost(filePath: string, raw: string): BlogPost {
-  const { data, content } = matter(raw);
+  const { data, content } = parseFrontmatter(raw);
   const fm = data as Partial<BlogFrontmatter>;
   const slugFromFile = pathToSlug(filePath);
-  const slug = fm.slug?.trim() || slugFromFile;
+  const slug = (typeof fm.slug === 'string' && fm.slug.trim()) || slugFromFile;
 
   if (!fm.title || !fm.date) {
     throw new Error(`Blog post ${filePath} requires title and date in frontmatter`);
@@ -56,12 +74,12 @@ function parsePost(filePath: string, raw: string): BlogPost {
 
   return {
     slug,
-    title: fm.title,
+    title: String(fm.title),
     date: normalizeDate(fm.date),
     tags,
-    summary: fm.summary,
+    summary: fm.summary != null ? String(fm.summary) : undefined,
     readingTime,
-    content: content.trim(),
+    content,
   };
 }
 
@@ -95,11 +113,8 @@ export function getAllTags(): string[] {
 
 /** Strip YAML frontmatter if present (for heading scan). */
 function bodyWithoutFrontmatter(raw: string): string {
-  if (raw.startsWith('---')) {
-    const end = raw.indexOf('\n---', 3);
-    if (end !== -1) return raw.slice(end + 4).trim();
-  }
-  return raw;
+  const m = raw.match(/^---\r?\n[\s\S]*?\r?\n---\r?\n([\s\S]*)$/);
+  return m ? m[1].trim() : raw;
 }
 
 /**
@@ -113,9 +128,9 @@ export function extractTocFromMarkdown(markdown: string): TocItem[] {
   for (const line of lines) {
     const h2 = /^##\s+(.+)$/.exec(line);
     const h3 = /^###\s+(.+)$/.exec(line);
-    const raw = h2?.[1] ?? h3?.[1];
-    if (!raw) continue;
-    const text = raw.replace(/\*\*(.+?)\*\*/g, '$1').replace(/\[(.+?)\]\([^)]+\)/g, '$1').trim();
+    const rawHeading = h2?.[1] ?? h3?.[1];
+    if (!rawHeading) continue;
+    const text = rawHeading.replace(/\*\*(.+?)\*\*/g, '$1').replace(/\[(.+?)\]\([^)]+\)/g, '$1').trim();
     const level = h2 ? 2 : 3;
     toc.push({ id: slugifyHeading(text), text, level: level as 2 | 3 });
   }
