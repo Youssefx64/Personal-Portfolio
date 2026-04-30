@@ -1,11 +1,5 @@
-# 👋 Hello, I’m **Youssef Taha B.**
-**AI Engineer & Machine Learning Specialist**
+# Portfolio Comming Soon
 
-I’m a passionate **AI Engineer** with expertise in **Machine Learning**, **Deep Learning**, and **Computer Vision**. I thrive on crafting innovative, real-world impact solutions—from **healthcare** and **autonomous systems** to **advanced data analysis**.
+The portfolio content has been cleared while the site is rebuilt.
 
----
-
-##  Portfolio  
-Explore my work and projects here: [Visit My Portfolio](https://youssef-taha.netlify.app/)
-
----
+The temporary site shows a coming-soon screen with a small playable game.

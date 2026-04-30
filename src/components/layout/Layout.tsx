@@ -26,7 +26,7 @@ export default function Layout() {
       >
         <meta
           name="description"
-          content={`${site.title} — LLMs, RAG, and Agentic AI. Projects, writing, and research.`}
+          content="A tiny game is open while the portfolio is being rebuilt."
         />
       </Helmet>
       <Navbar />
