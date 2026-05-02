@@ -1,5 +1,5 @@
-import { useEffect, useRef, useState } from 'react';
-import { Cpu, Menu, Moon, Sun, X } from 'lucide-react';
+import { useEffect, useState } from 'react';
+import { Menu, Moon, Sun, X } from 'lucide-react';
 
 const NAV_ITEMS = [
   { id: 'home', label: 'Home' },
@@ -48,12 +48,19 @@ export default function Navbar({ isDark, toggleDarkMode }: NavbarProps) {
         <button
           type="button"
           onClick={() => scrollTo('home')}
-          className="inline-flex items-center gap-2.5 font-mono text-sm font-bold uppercase tracking-[0.16em] text-[#272217] dark:text-[#fff5dd]"
+          className="inline-flex items-center gap-2.5 group"
         >
-          <span className="flex h-7 w-7 items-center justify-center rounded-lg bg-[#c06c35] text-white">
-            <Cpu className="h-3.5 w-3.5" />
+          <span className="flex h-8 w-8 shrink-0 items-center justify-center rounded-lg bg-[#272217] font-mono text-[0.72rem] font-black text-[#fff5dd] ring-2 ring-[#c06c35] dark:bg-[#fff5dd] dark:text-[#272217]">
+            YT
           </span>
-          YT.ai
+          <span className="flex flex-col items-start leading-none">
+            <span className="font-serif text-[0.9rem] font-bold text-[#272217] group-hover:text-[#c06c35] transition-colors dark:text-[#fff5dd] dark:group-hover:text-[#f0ad72]">
+              Youssef Taha
+            </span>
+            <span className="font-mono text-[0.55rem] font-semibold uppercase tracking-[0.18em] text-[#8a7e6b] dark:text-[#a99b80]">
+              AI Engineer
+            </span>
+          </span>
         </button>
 
         {/* Desktop nav */}
