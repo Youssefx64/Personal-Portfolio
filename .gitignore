@@ -40,6 +40,9 @@ logs/
 .cache/
 .local/
 .replit.nix
+attached_assets/
+.replit
+replit.nix
 
 # ── IDEs & Editors ────────────────────────────────────────────────────────────
 .idea/
