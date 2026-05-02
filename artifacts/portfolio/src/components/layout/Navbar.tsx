@@ -50,11 +50,6 @@ export default function Navbar({ isDark, toggleDarkMode }: NavbarProps) {
           onClick={() => scrollTo('home')}
           className="inline-flex items-center gap-2.5 group"
         >
-          <img
-            src="/avatar.png"
-            alt="Youssef Taha"
-            className="h-8 w-8 shrink-0 rounded-lg object-cover ring-2 ring-[#c06c35]"
-          />
           <span className="flex flex-col items-start leading-none">
             <span className="font-serif text-[0.9rem] font-bold text-[#272217] group-hover:text-[#c06c35] transition-colors dark:text-[#fff5dd] dark:group-hover:text-[#f0ad72]">
               Youssef Taha
