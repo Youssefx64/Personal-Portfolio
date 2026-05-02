@@ -1,6 +1,6 @@
 import { ArrowRight } from 'lucide-react';
 import type { Project } from '../../content/projects';
-import Tag from './Tag';
+import Tag from './tag';
 
 type ProjectCardProps = {
   project: Project;

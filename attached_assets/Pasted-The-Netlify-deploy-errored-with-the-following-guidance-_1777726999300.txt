@@ -1,0 +1,40 @@
+The Netlify deploy errored, with the following guidance provided:
+
+Relevant log lines:
+line 88 shows the TypeScript error in alert-dialog.tsx.
+line 90 and line 91 show why the file is in the program and the import that caused it.
+line 92 indicates the package typecheck failed and caused the build to exit.
+Diagnosis
+
+Error type: TypeScript error TS1149 (file name differs only in casing / duplicate inclusion).
+Cause: A file is being referenced with different casings/paths so TypeScript ends up including the same physical file under two different names. The error originates in artifacts/portfolio/src/components/ui/alert-dialog.tsx (see line 88). The file imports "@/components/ui/button" (see line 91), but the actual file path/casing on disk does not match that import exactly. This passes on case-insensitive dev machines (macOS/Windows) but fails on Netlify's Linux CI (case-sensitive).
+What to do (specific steps)
+
+Open the file mentioned by the error:
+artifacts/portfolio/src/components/ui/alert-dialog.tsx
+(link: https://github.com/Youssefx64/Personal-Portfolio/blob/main/artifacts/portfolio/src/components/ui/alert-dialog.tsx)
+Inspect the import at line 5 (the import at column ~32 shown in the logs). It will be something like:
+import { Button } from "@/components/ui/button";
+Verify the actual filename in the repo for that component:
+List the ui directory: artifacts/portfolio/src/components/ui/
+Confirm whether the file is named button.tsx or Button.tsx (or some other casing).
+Make the import match the exact filename/casing (example — change to whichever matches the file on disk):
+// If the file is named Button.tsx
+import { Button } from "@/components/ui/Button";
+
+// If the file is named button.tsx
+import { Button } from "@/components/ui/button";
+Search the codebase for other inconsistent imports that differ only by case and fix them (git grep -i or your editor’s global search for /components/ui/Button vs /components/ui/button).
+Commit and push the change, then re-run the Netlify build.
+Notes / extra checks
+
+Because Netlify runs on Linux, ensure all imports exactly match the file and folder name casing.
+Run TypeScript build locally to validate before pushing:
+From repo root: npm run typecheck (or the workspace/typecheck command you use).
+If you see similar TS1149 errors for other files, repeat the same casing-fix process.
+This is a casing mismatch issue (TS1149) — fixing the import to match the file’s exact name on disk will resolve the Netlify build failure.
+
+The relevant error logs are:
+
+Line 77: > workspace@0.0.0 typecheck:libs /opt/build/repo Line 78: > tsc --build Line 79: Scope: 4 of 9 workspace projects Line 80: artifacts/api-server typecheck$ tsc -p tsconfig.json --noEmit Line 81: artifacts/mockup-sandbox typecheck$ tsc -p tsconfig.json --noEmit Line 82: artifacts/portfolio typecheck$ tsc -p tsconfig.json --noEmit Line 83: artifacts/api-server typecheck: Done Line 84: scripts typecheck$ tsc -p tsconfig.json --noEmit Line 85: scripts typecheck: Done Line 86: artifacts/mockup-sandbox typecheck: Done Line 87: Failed during stage 'building site': Build script returned non-zero exit code: 2 Line 88: artifacts/portfolio typecheck: src/components/ui/alert-dialog.tsx(5,32): error TS1149: File name '/opt/build Line 89: artifacts/portfolio typecheck: The file is in the program because: Line 90: artifacts/portfolio typecheck: Matched by include pattern 'src/**/' in 'tsconfig.json' Line 91: artifacts/portfolio typecheck: Imported via "@/components/ui/button" from file '/opt/build/repo/artifact Line 92: artifacts/portfolio typecheck: Failed Line 93: /opt/build/repo/artifacts/portfolio: Line 94:  ERR_PNPM_RECURSIVE_RUN_FIRST_FAIL  @workspace/portfolio@0.0.0 typecheck: `tsc -p tsconfig.json --noEmi Line 95: Exit status 2 Line 96:  ELIFECYCLE  Command failed with exit code 2. Line 97: ​Line 98: "build.command" failed
+Line 99: ──────────────────────────────────────────────────────────────── Line 100: ​Line 101: Error message Line 102: Command failed with exit code 2: npm run build Line 103: ​Line 104: Error location Line 105: In Build command from Netlify app: Line 106: npm run build Line 107: ​Line 108: Resolved config Line 109: build: Line 110: command: npm run build Line 111: commandOrigin: ui Line 112: publish: /opt/build/repo/dist Line 113: publishOrigin: ui Line 114: redirects: Line 115: - from: / status: 200 to: /index.html Line 116: Build failed due to a user error: Build script returned non-zero exit code: 2 Line 117: Failing build: Failed to build site Line 118: Finished processing build request in 33.749s

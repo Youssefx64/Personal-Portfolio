@@ -1,6 +1,6 @@
 import { Link } from 'react-router-dom';
 import type { BlogPost } from '../../utils/blogUtils';
-import Tag from './Tag';
+import Tag from './tag';
 
 type BlogPostCardProps = {
   post: BlogPost;
