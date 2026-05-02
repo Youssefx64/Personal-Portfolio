@@ -16,6 +16,16 @@ pnpm workspace monorepo using TypeScript. Each package manages its own dependenc
 - **API codegen**: Orval (from OpenAPI spec)
 - **Build**: esbuild (CJS bundle)
 
+## Artifacts
+
+### Portfolio — Coming Soon (`artifacts/portfolio/`)
+- React + Vite + TypeScript frontend app (frontend-only, no backend)
+- Tailwind CSS v3 with custom theme (warm parchment palette: #fbf7ea bg, #272217 ink, #c06c35 orange accent)
+- Fonts: Inter (sans), Lora (serif), JetBrains Mono (mono) via Google Fonts
+- React Router DOM v6 with BrowserRouter + BASE_URL basename
+- Features: "Button Panic" interactive game, dark mode toggle, responsive layout
+- No external API calls or auth required
+
 ## Key Commands
 
 - `pnpm run typecheck` — full typecheck across all packages

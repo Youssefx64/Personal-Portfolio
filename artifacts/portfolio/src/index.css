@@ -1,0 +1,59 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  body {
+    @apply bg-paper text-ink font-sans leading-[1.75] antialiased text-base;
+  }
+  
+  .dark body {
+    @apply bg-[#0F0F0F] text-[#EDEDED];
+  }
+
+  h1, h2, h3 {
+    @apply font-serif text-ink tracking-tight;
+  }
+
+  .dark h1, .dark h2, .dark h3 {
+    @apply text-[#EDEDED];
+  }
+
+  h1 {
+    @apply text-[2.5rem] font-bold;
+  }
+
+  h2 {
+    @apply text-[1.75rem] font-semibold;
+  }
+
+  h3 {
+    @apply text-[1.25rem] font-semibold;
+  }
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+.article-body .katex-display {
+  overflow-x: auto;
+  overflow-y: hidden;
+  padding: 0.5rem 0;
+}
+
+.dark .article-body pre code.hljs {
+  background: transparent !important;
+}
+
+@media print {
+  .resume-page a {
+    color: inherit;
+    text-decoration: none;
+  }
+}
+
+/* Base interactive elements */
+:focus-visible {
+  @apply outline outline-2 outline-accent outline-offset-2;
+}
