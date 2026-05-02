@@ -18,13 +18,35 @@ pnpm workspace monorepo using TypeScript. Each package manages its own dependenc
 
 ## Artifacts
 
-### Portfolio — Coming Soon (`artifacts/portfolio/`)
-- React + Vite + TypeScript frontend app (frontend-only, no backend)
-- Tailwind CSS v3 with custom theme (warm parchment palette: #fbf7ea bg, #272217 ink, #c06c35 orange accent)
+### Portfolio (`artifacts/portfolio/`)
+- **Owner**: Youssef Taha Badawi — AI Engineer & GenAI Developer
+- React + Vite + TypeScript frontend (frontend-only, no backend)
+- Tailwind CSS v3 with custom theme (warm parchment palette: #fbf7ea bg, #272217 ink, #c06c35 orange accent, #587a63 green)
 - Fonts: Inter (sans), Lora (serif), JetBrains Mono (mono) via Google Fonts
 - React Router DOM v6 with BrowserRouter + BASE_URL basename
-- Features: "Button Panic" interactive game, dark mode toggle, responsive layout
-- No external API calls or auth required
+- Dark mode via Tailwind `class` strategy + `useDarkMode` hook
+- `react-helmet-async` for per-page SEO
+
+### Pages
+- `/` — Home: hero with photo, stats strip, 4 featured projects, CTA section
+- `/about` — Bio, quick-info card, 6 skill category grids
+- `/projects` — Filterable grid of 12 projects (All / Generative AI / NLP / Computer Vision / Data Science / Other)
+- `/experience` — Work experience (GenAI Engineer), Education (B.Sc. AI & Data Science), 9 Certifications
+- `/contact` — Direct contact (email, phone, location) + 6 social platform cards
+
+### Key Data Files
+- `src/config/site.ts` — all personal info, social URLs, contact details
+- `src/content/projects.ts` — 12 GitHub project definitions with category, tech stack, stars
+- `src/content/resume.ts` — experience bullets, education, certifications, skill groups
+
+### Social Profiles
+- GitHub: https://github.com/Youssefx64
+- LinkedIn: https://www.linkedin.com/in/yousseftahaai/
+- Kaggle: https://www.kaggle.com/yousseftaha98
+- HuggingFace: https://huggingface.co/yousseftaha98
+- LeetCode: https://leetcode.com/u/Youssef_Taha1/
+- YouTube: https://www.youtube.com/@SirYoussefx64
+- Email: ytaha8586@gmail.com
 
 ## Key Commands
 
