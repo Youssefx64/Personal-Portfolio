@@ -17,6 +17,8 @@ export const site = {
   huggingface: 'https://huggingface.co/yousseftaha98',
   leetcode: 'https://leetcode.com/u/Youssef_Taha1/',
   youtube: 'https://www.youtube.com/@SirYoussefx64',
+  medium: 'https://medium.com/@ytaha8586',
+  stackoverflow: 'https://stackoverflow.com/users/22887699/youssef-taha',
   googleScholar: '#',
   resumePdfPath: '#',
   avatarPath: '/avatar.png',
