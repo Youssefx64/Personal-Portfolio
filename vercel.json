@@ -1,0 +1,15 @@
+{
+  "buildCommand": "pnpm run build",
+  "installCommand": "pnpm install",
+  "outputDirectory": "artifacts/portfolio/dist/public",
+  "framework": "vite",
+  "env": {
+    "NODE_ENV": "production"
+  },
+  "regions": ["iad1"],
+  "functions": {
+    "artifacts/api-server/**/*.ts": {
+      "runtime": "nodejs-20.x"
+    }
+  }
+}

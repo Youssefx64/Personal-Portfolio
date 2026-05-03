@@ -1,0 +1,14 @@
+.git
+.gitignore
+.migration-backup
+.replit
+.replitignore
+replit.md
+node_modules
+pnpm-lock.yaml
+.env.local
+.env.*.local
+artifacts/mockup-sandbox
+artifacts/api-server
+lib
+scripts
