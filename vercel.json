@@ -11,5 +11,6 @@
     "artifacts/api-server/**/*.ts": {
       "runtime": "nodejs-20.x"
     }
-  }
+  },
+  "packageManager": "pnpm@9"
 }
