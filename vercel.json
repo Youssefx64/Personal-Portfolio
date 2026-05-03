@@ -1,6 +1,6 @@
 {
-  "buildCommand": "pnpm run build",
-  "installCommand": "pnpm install",
+  "buildCommand": "npm run build",
+  "installCommand": "npm install",
   "outputDirectory": "artifacts/portfolio/dist/public",
   "framework": "vite",
   "env": {
@@ -11,6 +11,5 @@
     "artifacts/api-server/**/*.ts": {
       "runtime": "nodejs-20.x"
     }
-  },
-  "packageManager": "pnpm@9"
+  }
 }
