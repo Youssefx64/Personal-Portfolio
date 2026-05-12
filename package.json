@@ -9,6 +9,13 @@
     "typecheck": "npm run typecheck:libs && npm --workspaces --if-present run typecheck"
   },
   "private": true,
+  "workspaces": [
+    "artifacts/portfolio",
+    "artifacts/api-server",
+    "artifacts/mockup-sandbox",
+    "lib/*",
+    "scripts"
+  ],
   "devDependencies": {
     "typescript": "~5.9.2",
     "prettier": "^3.8.1"

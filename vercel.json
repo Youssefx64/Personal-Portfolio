@@ -7,9 +7,14 @@
     "NODE_ENV": "production"
   },
   "regions": ["iad1"],
-  "functions": {
-    "artifacts/api-server/**/*.ts": {
-      "runtime": "nodejs-20.x"
+  "rewrites": [
+    {
+      "source": "/(css|js|assets|images|attached_assets)/(.+)",
+      "destination": "/$1/$2"
+    },
+    {
+      "source": "/(.*)",
+      "destination": "/index.html"
     }
-  }
+  ]
 }
