@@ -3,10 +3,10 @@
   "version": "0.0.0",
   "license": "MIT",
   "scripts": {
-    "build": "npm run typecheck && npm run build:workspaces",
-    "build:workspaces": "npm --workspaces --if-present run build",
+    "build": "pnpm run typecheck && pnpm run build:workspaces",
+    "build:workspaces": "pnpm --recursive --if-present run build",
     "typecheck:libs": "tsc --build",
-    "typecheck": "npm run typecheck:libs && npm --workspaces --if-present run typecheck"
+    "typecheck": "pnpm run typecheck:libs && pnpm --recursive --if-present run typecheck"
   },
   "private": true,
   "workspaces": [
